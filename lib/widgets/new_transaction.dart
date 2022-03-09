@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_02_expance/widgets/adaptive_text_button.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
@@ -46,50 +48,50 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        elevation: 10,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(labelText: 'Titolo'),
-                // onChanged: (val) => titleInput = val,
-                controller: _titleController,
-                onSubmitted: (_) => _addTransaction,
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: 'Prezzo'),
-                // onChanged: (val) => amountInput = val,
-                controller: _priceController,
-                keyboardType: TextInputType.number,
-                onSubmitted: (_) => _addTransaction,
-              ),
-              Container(
-                height: 50,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(_selectedDate == null
-                          ? 'No Date Chosen!'
-                          : DateFormat.yMd().format(_selectedDate!)),
-                    ),
-                    TextButton(
-                      onPressed: _presentDatePicker,
-                      child: Text(
-                        'Chose Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
+    return SingleChildScrollView(
+      child: Card(
+          elevation: 10,
+          child: Container(
+            padding: EdgeInsets.only(
+                top: 10,
+                left: 10,
+                right: 10,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+            child: Column(
+              children: [
+                TextField(
+                  decoration: InputDecoration(labelText: 'Titolo'),
+                  // onChanged: (val) => titleInput = val,
+                  controller: _titleController,
+                  onSubmitted: (_) => _addTransaction,
                 ),
-              ),
-              ElevatedButton(
-                onPressed: _addTransaction,
-                child: Text('Add Transaction'),
-              )
-            ],
-          ),
-        ));
+                TextField(
+                  decoration: InputDecoration(labelText: 'Prezzo'),
+                  // onChanged: (val) => amountInput = val,
+                  controller: _priceController,
+                  keyboardType: TextInputType.number,
+                  onSubmitted: (_) => _addTransaction,
+                ),
+                Container(
+                  height: 50,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(_selectedDate == null
+                            ? 'No Date Chosen!'
+                            : DateFormat.yMd().format(_selectedDate!)),
+                      ),
+                      AdaptiveTextButton('Chose Date', _presentDatePicker),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: _addTransaction,
+                  child: Text('Add Transaction'),
+                )
+              ],
+            ),
+          )),
+    );
   }
 }
